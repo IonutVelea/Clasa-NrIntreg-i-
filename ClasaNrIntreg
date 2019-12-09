@@ -1,0 +1,148 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+class NrRational
+{
+	int numarator;
+	int numitor;
+public:
+	NrRational()
+	{
+		numarator = 0;
+		numitor = 1;
+	}
+
+	NrRational(int x, int y)
+	{
+		numarator = x;
+		numitor = y;
+	}
+
+	NrRational(const NrRational &p)
+	{
+		numarator = p.numarator;
+		numitor = p.numitor;
+	}
+
+
+	void set_numarator(int numarator)
+	{
+		this->numarator = numarator;
+	}
+	void set_numitor(int numitor)
+	{
+		this->numitor = numitor;
+	}
+
+
+	void afisareNrRational()
+	{
+		cout << "Numarul rational introdus este: " << this->numarator << " / " << this->numitor << endl;
+	}
+
+	
+	operator double() const
+	{
+		return double(numarator / numitor);
+	}
+
+	NrRational operator+(NrRational nr2);
+
+
+	//sau
+	//friend NrRational& operator+(NrRational nr1, NrRational nr2);
+
+};
+
+NrRational NrRational::operator+(NrRational nr2)
+{
+	NrRational rez;
+	if (numitor == nr2.numitor)
+	{
+		rez.numarator = numarator + nr2.numarator;
+		rez.numitor = numitor;
+	}
+	else
+	{
+		rez.numarator = numarator * nr2.numitor + numitor * nr2.numarator;
+		rez.numitor = numitor * nr2.numitor;
+	}
+	return rez;
+
+	/*NrRational& operator+(NrRational nr1, NrRaional nr2)
+	{
+
+		NrRational rez;
+		if(nr1.numitor==nr2.numitor)
+		{
+			rez.numarator= nr1.numarator+nr2.numarator;
+			rez.numitor= nr1.numitor;
+		}
+		else
+		{
+			rez.numarator=nr1.numarator*nr2.numitor+ nr1.numitor*nr2.numarator;
+			rez.numitor=nr1.numitor*nr2.numitor;
+		}
+		return rez;
+	}
+*/
+
+
+}
+
+
+
+int main()
+{
+	NrRational x, y, z;
+	x.set_numarator(10);
+	x.set_numitor(2);
+	y.set_numarator(5);
+	y.set_numitor(6);
+	x.afisareNrRational();
+	y.afisareNrRational();
+
+	z = x + y;
+	z.afisareNrRational();
+
+	double u, v;
+	u = double(x);
+	v = double(y);
+	cout << "Rezultat(double): " << u <<" si "<< v << endl;
+	
+}
+
+
+
+
+
+
+
+EX.2:
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int a[] = { 1,5,10,15,20 };
+	int *p = &a[1];//   *p=5
+	int b = 10;//        b=10 
+	int c = 0;//         c=0
+	b -= *p++ += c += --*p++;     // c= --*p++ echivalent cu  c=4
+//  b -= *p++ += --*p++;
+//  b -= *p++ + --*p++;
+//  b= b- *p++ - --*p++;
+//  b= 10 - 5 - 4
+//  b= 1;
+
+
+	cout << a[0] << " " << a[1] << " " << a[2] << " " << a[3] << " " << a[4] << endl;
+	cout << *p << " " << b << " " << c;
+
+	// 1 8 10 15 20
+	// 15 2 4 
+
+}
+
